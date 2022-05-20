@@ -4,7 +4,7 @@ def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent { label 'master' }
-  tool name: 'JAVA_HOME', type: 'jdk'
+  // tool name: 'JAVA_HOME', type: 'jdk'
 options { 
     timestamps () 
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')	
@@ -13,12 +13,13 @@ options {
 // artifactDaysToKeepStr - Days to keep artifacts
 // artifactNumToKeepStr - Max # of builds to keep with artifacts	  
 }	
-  environment {
+  /** environment {
     SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
-  }  
+  } */ 
   stages {
-    stage('Artifactory_Configuration') {
+    stage('git clone') {
       steps {
+	      git branch: 'main', url: 'https://github.com/akandeae/CI-CD-Demo.git'
         script {
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
