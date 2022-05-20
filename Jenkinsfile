@@ -4,10 +4,8 @@ def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent { label 'master' }
-    tools {
-      maven 'Maven'
-      jdk 'JAVA_HOME'
-    }
+  tool name: 'JAVA_HOME', type: 'jdk'
+  tool name: 'Maven', type: 'maven'
   options { 
     timestamps () 
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')	
