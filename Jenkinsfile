@@ -5,8 +5,7 @@ def buildInfo
 pipeline {
   agent { label 'master' }
   tool name: 'JAVA_HOME', type: 'jdk'
-  tool name: 'Maven', type: 'maven'
-  options { 
+options { 
     timestamps () 
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')	
 // numToKeepStr - Max # of builds to keep
