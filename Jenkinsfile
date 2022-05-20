@@ -1,5 +1,5 @@
 def mvn
-def server = Artifactory.server 'artifactory'
+def server = Artifactory.server 'jfrog-dev'
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
