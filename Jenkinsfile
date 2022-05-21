@@ -1,6 +1,6 @@
 def mvn
 def server = Artifactory.server 'artifactory'
-def rtMaven = Artifactory.newMavenBuild()
+// def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent { label 'master' }
