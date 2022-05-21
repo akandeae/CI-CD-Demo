@@ -1,11 +1,14 @@
 def mvn
-def server = Artifactory.server 'jfrog-dev'
+def server = Artifactory.server 'artifactory'
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
   agent { label 'master' }
-  // tool name: 'JAVA_HOME', type: 'jdk'
-options { 
+    tools {
+      maven 'Maven'
+      jdk 'JAVA_HOME'
+    }
+  options { 
     timestamps () 
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '10', numToKeepStr: '5')	
 // numToKeepStr - Max # of builds to keep
@@ -13,13 +16,12 @@ options {
 // artifactDaysToKeepStr - Days to keep artifacts
 // artifactNumToKeepStr - Max # of builds to keep with artifacts	  
 }	
-  /** environment {
+  environment {
     SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
-  } */ 
+  }  
   stages {
-    stage('git clone') {
+    stage('Artifactory_Configuration') {
       steps {
-	      git branch: 'main', url: 'https://github.com/akandeae/CI-CD-Demo.git'
         script {
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
@@ -74,7 +76,7 @@ options {
     }
   }
 }	  	  
-/** post {
+post {
     always {
 		mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "Success: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
     }
@@ -82,5 +84,5 @@ options {
 sh 'echo "This will run only if failed"'
       mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
     }
-  } */
+  }
 }
