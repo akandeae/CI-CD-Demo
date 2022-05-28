@@ -3,7 +3,7 @@ def server = Artifactory.server 'artifactory'
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo
 pipeline {
-  agent { label 'master' }
+  agent { label 'any' }
     tools {
       maven 'Maven'
       jdk 'JAVA_HOME'
