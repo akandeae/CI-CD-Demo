@@ -22,7 +22,6 @@ pipeline {
   stages {
     stage('Artifactory_Configuration') {
       steps {
-	deleteDir()
         script {
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
