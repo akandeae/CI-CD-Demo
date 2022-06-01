@@ -20,7 +20,7 @@ pipeline {
     SONAR_HOME = "${tool name: 'sonar-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'}"
   }  
   stages {
-    stage('Artifactory_Configuration') {
+   /** stage('Artifactory_Configuration') {
       steps {
         script {
 		  rtMaven.tool = 'Maven'
@@ -30,11 +30,12 @@ pipeline {
           buildInfo.env.capture = true
         }			                      
       }
-    }
+    } */
     stage('Execute_Maven') {
 	  steps {
 	    script {
-		  rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+		  // rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+		    sh "mvn clean install"
         }			                      
       }
     }	
