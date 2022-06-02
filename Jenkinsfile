@@ -44,7 +44,7 @@ pipeline {
 	    script {
           scannerHome = tool 'sonar-scanner'
         }
-        withSonarQubeEnv('sonar') {
+        withSonarQubeEnv('sonar-scanner') {
       	  sh """${scannerHome}/bin/sonar-scanner"""
         }
       }	
@@ -77,7 +77,7 @@ pipeline {
     }
   }
 }	  	  
-post {
+/** post {
     always {
 		mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "Success: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
     }
@@ -86,4 +86,4 @@ sh 'echo "This will run only if failed"'
       mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
     }
   }
-}
+} */
