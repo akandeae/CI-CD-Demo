@@ -67,6 +67,7 @@ pipeline {
     steps{
 	    sh 'ls -l'
 	    sh 'cd target && ls -l'
+	    sh 'docker exec -ti myapp sh -c "cd /usr/local/tomcat/webapps && ls -l"'
 	    sleep 1000
       sh 'docker build -t sudhanlogics/ci-cd-demo:$BUILD_NUMBER .'
     }
