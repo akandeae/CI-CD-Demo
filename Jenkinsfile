@@ -34,7 +34,7 @@ pipeline {
     stage('Execute_Maven') {
 	  steps {
 	    script {
-		  // rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
+		   rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
 		    sh "mvn clean install"
         }			                      
       }
@@ -77,13 +77,13 @@ pipeline {
     }
   }
 }	  	  
-/**post {
+post {
     always {
 		mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "Success: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
     }
     failure {
 sh 'echo "This will run only if failed"'
       mail bcc: '', body: "<br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br>URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR: Project name -> ${env.JOB_NAME}", to: "sudhan@thrivetech.in";
-    }*/
+    }
   }
 }
