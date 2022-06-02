@@ -45,7 +45,7 @@ pipeline {
           scannerHome = tool 'sonar-scanner'
         }
         withSonarQubeEnv('sonar-scanner') {
-      	  sh """${scannerHome}/bin/sonar-scanner"""
+      	  sh """${scannerHome}/opt/sonarqube"""
         }
       }	
     }	
