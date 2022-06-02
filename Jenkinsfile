@@ -49,19 +49,19 @@ pipeline {
         }
       }	
     }	
-	stage('Quality_Gate') {
+	/** stage('Quality_Gate') {
 	  steps {
 	    timeout(time: 5, unit: 'MINUTES') {
 		  waitForQualityGate abortPipeline: true
         }
       }
-    }
+    } 
    stage('Deleting docker images and Containers'){
     steps{
      sh 'chmod +x delete_cont.sh'
      sh './delete_cont.sh'	      
     }
-  }
+  } */
   stage('Build Docker Image'){
     steps{
       sh 'docker build -t sudhanlogics/ci-cd-demo:$BUILD_NUMBER .'
@@ -69,11 +69,11 @@ pipeline {
   }	  	 
   stage('Docker Container'){
     steps{
-      withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
-	  sh 'docker login -u ${docker_user} -p ${docker_pass}'
+     // withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
+	  //sh 'docker login -u ${docker_user} -p ${docker_pass}'
       	  sh 'docker push sudhanlogics/ci-cd-demo:$BUILD_NUMBER'
 	  sh 'docker run -d -p 8050:8050 --name SpringbootApp sudhanlogics/ci-cd-demo:$BUILD_NUMBER'
-	  }
+	//  }
     }
   }
 }	  	  
