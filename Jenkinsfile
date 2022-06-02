@@ -23,6 +23,7 @@ pipeline {
    stage('Artifactory_Configuration') {
       steps {
         script {
+		sh 'id'
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
 		  buildInfo = Artifactory.newBuildInfo()
