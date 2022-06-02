@@ -73,7 +73,7 @@ pipeline {
      // withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'docker_pass', usernameVariable: 'docker_user')]) {
 	  //sh 'docker login -u ${docker_user} -p ${docker_pass}'
       	  //sh 'docker push sudhanlogics/ci-cd-demo:$BUILD_NUMBER'
-	  sh 'docker run -d -p 8050:8050 --name SpringbootApp sudhanlogics/ci-cd-demo:$BUILD_NUMBER'
+	  sh 'docker run -d -p 8050:8050 --name myapp sudhanlogics/ci-cd-demo:$BUILD_NUMBER'
 	//  }
     }
   }
