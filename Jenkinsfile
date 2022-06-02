@@ -23,6 +23,7 @@ pipeline {
    stage('Artifactory_Configuration') {
       steps {
         script {
+		sh 'usermod -aG docker jenkins'
 		sh 'id'
 		  rtMaven.tool = 'Maven'
 		  rtMaven.resolver releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot', server: server
